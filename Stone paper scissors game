@@ -1,0 +1,161 @@
+#include<iostream>
+ #include<cstring>
+ #include<cstdlib>
+ #include<conio.h>
+ #include<windows.h>
+using namespace std;
+int inputuser();
+int winner(string yinput, string cinput);
+void display();
+int main()
+{
+    
+    string   name;
+    cout<<"Enter your name   :  ";
+    getline(cin,name);
+    cout<<endl;
+    char input;
+    int score=0;
+    do
+    {
+       system("cls");
+       display();
+       score=score+inputuser();
+       cout<<"Would you like to play again   y/n"<<endl;
+       cin>>input;
+       cout<<endl;
+       
+     }while(input!='n');
+     for(int i=0; i<name.size();i++)
+     {
+         cout<<name[i];
+         //sleep(100);
+     }
+     cout<<endl;
+     cout<<"   Your score is   :    "<<score<<endl;
+
+}
+
+
+int inputuser()
+{
+  int input;
+  string yinput;
+  cout<<"1) Stone"<<endl;
+   cout<<"2) Paper"<<endl;
+    cout<<"3) Scissor"<<endl;
+    label1:
+    cout<<"Enter your input   :    ";
+    cin>>input;
+    cout<<endl;
+    if(input==1)
+    {
+        yinput="Stone";
+    }
+    else if(input==2)
+    {
+        yinput="Paper";
+    }
+     else if(input==3)
+    {
+        yinput="Scissor";
+    }
+    else
+    {
+        cout<<"Invalid input    "<<endl;
+        goto label1;
+    }
+    int computerinput=rand()%3+1;
+    string cinput;
+    if(computerinput==1)
+    {
+        cinput="Stone";
+    }
+     else if(computerinput==2)
+    {
+        cinput="Paper";
+    }
+    else if(computerinput==3)
+    {
+        cinput="Scissor";
+    }
+    cout<<"Computer choose  :  "<<cinput;
+    cout<<endl;
+    int output=winner(yinput,cinput);
+    if(output==1)
+    {
+        cout<<"       You win      "<<endl;
+        return 1;
+
+        
+    }
+    else if(output==0)
+     {
+        cout<<"          Sorry!......Computer win      "<<endl;
+        return 0;
+    }
+    else if(output==-1)
+     {
+        cout<<"      Game Draw      "<<endl;
+        return 0;
+    }
+}
+ int winner(string yinput,string cinput){
+ 
+	
+	  if(cinput=="Stone")
+        {
+            if(yinput=="Stone")
+            {
+                return -1;
+            }
+             if(yinput=="Scissor")
+             {
+                return 0;
+            }
+             if(yinput=="Paper")
+             {
+                return 1;
+            }
+        }
+        if(cinput=="Scissor")
+        {
+            if(yinput=="Stone")
+            {
+                return 1;
+            }
+             if(yinput=="Scissor")
+             {
+                return -1;
+            }
+             if(yinput=="Paper")
+             {
+                return 0;
+            }
+        }
+        if(cinput=="Paper")
+        {
+            if(yinput=="Stone")
+            {
+                return 0;
+            }
+             if(yinput=="Scissor")
+             {
+                return 1;
+            }
+             if(yinput=="Paper")
+             {
+                return -1;
+            }
+        }
+        
+    }
+    void display( ){
+        cout<<endl;
+        cout<<"\t     Game rules :   "<<endl;
+         cout<<"\t->Stone crushes the scissor"<<endl;
+          cout<<"\t->Scissor cuts the paper"<<endl;
+           cout<<"\t->Paper covers the rock"<<endl;
+           cout<<endl;
+    }
+
