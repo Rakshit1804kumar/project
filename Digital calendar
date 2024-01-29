@@ -1,0 +1,89 @@
+import java.util.*;
+
+class CalendarProgram {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the Digital Calendar!");
+
+        while (true) {
+            System.out.println("\nOptions:");
+            System.out.println("1. View Calendar");
+            System.out.println("2. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    viewCalendar();
+                    break;
+                case 2:
+                    System.out.println("Exiting the Digital Calendar. Goodbye!");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+            }
+        }
+    }
+
+    private static void viewCalendar() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("\nEnter the year: ");
+        int year = scanner.nextInt();
+
+        System.out.print("Enter the month (1-12): ");
+        int month = scanner.nextInt();
+
+        if (isValidMonth(month) && isValidYear(year)) {
+            printCalendar(year, month);
+        } else {
+            System.out.println("Invalid month or year. Please try again.");
+        }
+    }
+
+    private static boolean isValidMonth(int month) {
+        return month >= 1 && month <= 12;
+    }
+
+    private static boolean isValidYear(int year) {
+        return year >= 0;
+    }
+
+    private static void printCalendar(int year, int month) {
+        Calendar calendar = new GregorianCalendar(year, month - 1, 1);
+        int numDaysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        System.out.println("\nCalendar for " + getMonthName(month) + " " + year + ":");
+        System.out.println("Sun Mon Tue Wed Thu Fri Sat");
+
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+        // Print leading spaces
+        for (int i = 1; i < dayOfWeek; i++) {
+            System.out.print("    ");
+        }
+
+        // Print days
+        for (int day = 1; day <= numDaysInMonth; day++) {
+            System.out.printf("%3d ", day);
+
+            if (dayOfWeek == Calendar.SATURDAY) {
+                System.out.println();
+            }
+
+            // Move to the next day
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        }
+
+        System.out.println(); // Add a newline for better formatting
+    }
+
+    private static String getMonthName(int month) {
+        String[] monthNames = {"January", "February", "March", "April", "May", "June",
+                               "July", "August", "September", "October", "November", "December"};
+        return monthNames[month - 1];
+    }
+}
